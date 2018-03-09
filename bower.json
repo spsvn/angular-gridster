@@ -1,5 +1,5 @@
 {
-	"name": "angular-gridster",
+	"name": "angular-layout-design",
 	"version": "0.13.14",
 	"main": [
 		"src/angular-gridster.js",
@@ -26,6 +26,17 @@
 		"Gruntfile.js",
 		"karma.conf.js",
 		"ptor.conf.js",
-		"package.json"
-	]
+		"package.json",
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"tests"
+	],
+	"homepage": "https://github.com/spsvn/angular-layout-design",
+	"authors": [
+		"Hunt Nguyen <hung.nguyen@swisspost.com>"
+	],
+	"description": "",
+	"license": "MIT",
+	"private": true
 }
