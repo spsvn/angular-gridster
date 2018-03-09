@@ -1,9 +1,9 @@
 {
-  "name": "angular-layout-design",
+  "name": "sps-angular-gridster",
   "version": "0.13.15",
   "description": "This directive gives you gridster behavior",
   "license": "MIT",
-  "homepage": "http://manifestwebdesign.github.io/angular-gridster",
+  "homepage": "https://github.com/spsvn/sps-angular-gridsterhttps://github.com/spsvn/sps-angular-gridster",
   "authors": "https://github.com/ManifestWebDesign/angular-gridster/graphs/contributors",
   "devDependencies": {
     "grunt": "^1.0.1",
@@ -40,7 +40,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/ManifestWebDesign/angular-gridster.git"
+    "url": "git+ssh://git@github.com/spsvn/sps-angular-gridster.git"
   },
   "main": "dist/angular-gridster.min.js",
   "bugs": {
@@ -49,5 +49,6 @@
   "directories": {
     "test": "test"
   },
-  "author": ""
+  "author": "",
+  "dependencies": {}
 }
