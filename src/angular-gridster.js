@@ -1,5 +1,5 @@
 /*global define:true*/
-(function (root, factory) {
+(function(root, factory) {
 
 	'use strict';
 
@@ -13,7 +13,7 @@
 		// Browser, nothing "exported". Only registered as a module with angular.
 		factory(root.angular);
 	}
-}(this, function (angular) {
+}(this, function(angular) {
 
 	'use strict';
 
@@ -57,7 +57,7 @@
 		})
 
 		.controller('GridsterCtrl', ['gridsterConfig', '$timeout',
-			function (gridsterConfig, $timeout) {
+			function(gridsterConfig, $timeout) {
 
 				var gridster = this;
 
@@ -70,12 +70,12 @@
 				this.draggable = angular.extend({}, gridsterConfig.draggable || {});
 
 				var flag = false;
-				this.layoutChanged = function () {
+				this.layoutChanged = function() {
 					if (flag) {
 						return;
 					}
 					flag = true;
-					$timeout(function () {
+					$timeout(function() {
 						flag = false;
 						if (gridster.loaded) {
 							gridster.floatItemsUp();
@@ -93,7 +93,7 @@
 				/**
 				 * Clean up after yourself
 				 */
-				this.destroy = function () {
+				this.destroy = function() {
 					// empty the grid to cut back on the possibility
 					// of circular references
 					if (this.grid) {
@@ -112,7 +112,7 @@
 				 *
 				 * @param {Object} options The options to override
 				 */
-				this.setOptions = function (options) {
+				this.setOptions = function(options) {
 					if (!options) {
 						return;
 					}
@@ -122,11 +122,11 @@
 					// all this to avoid using jQuery...
 					if (options.draggable) {
 						angular.extend(this.draggable, options.draggable);
-						delete (options.draggable);
+						delete(options.draggable);
 					}
 					if (options.resizable) {
 						angular.extend(this.resizable, options.resizable);
-						delete (options.resizable);
+						delete(options.resizable);
 					}
 
 					angular.extend(this, options);
@@ -151,7 +151,7 @@
 				 * @param {Number} column The column index
 				 * @returns {Boolean} True if if item fits
 				 */
-				this.canItemOccupy = function (item, row, column) {
+				this.canItemOccupy = function(item, row, column) {
 					return row > -1 && column > -1 && item.sizeX + column <= this.columns && item.sizeY + row <= this.maxRows;
 				};
 
@@ -160,7 +160,7 @@
 				 *
 				 * @param {Object} item The item to insert
 				 */
-				this.autoSetItemPosition = function (item) {
+				this.autoSetItemPosition = function(item) {
 					// walk through each row and column looking for a place it will fit
 					for (var rowIndex = 0; rowIndex < this.maxRows; ++rowIndex) {
 						for (var colIndex = 0; colIndex < this.columns; ++colIndex) {
@@ -185,7 +185,7 @@
 				 * @param {Array} excludeItems An array of items to exclude from selection
 				 * @returns {Array} Items that match the criteria
 				 */
-				this.getItems = function (row, column, sizeX, sizeY, excludeItems) {
+				this.getItems = function(row, column, sizeX, sizeY, excludeItems) {
 					var items = [];
 					if (!sizeX || !sizeY) {
 						sizeX = sizeY = 1;
@@ -220,7 +220,7 @@
 				 * @param {Array} items
 				 * @returns {Object} An item that represents the bounding box of the items
 				 */
-				this.getBoundingBox = function (items) {
+				this.getBoundingBox = function(items) {
 
 					if (items.length === 0) {
 						return null;
@@ -265,7 +265,7 @@
 				 * @param {number} bottom
 				 */
 
-				this.intersect = function (item, left, right, top, bottom) {
+				this.intersect = function(item, left, right, top, bottom) {
 					return (left <= item.col + item.sizeX - 1 &&
 						right >= item.col &&
 						top <= item.row + item.sizeY - 1 &&
@@ -278,7 +278,7 @@
 				 *
 				 * @param {Object} item
 				 */
-				this.removeItem = function (item) {
+				this.removeItem = function(item) {
 					var index;
 					for (var rowIndex = 0, l = this.grid.length; rowIndex < l; ++rowIndex) {
 						var columns = this.grid[rowIndex];
@@ -308,7 +308,7 @@
 				 * @param {Array} excludeItems Items to exclude from selection
 				 * @returns {Object} The matched item or null
 				 */
-				this.getItem = function (row, column, excludeItems) {
+				this.getItem = function(row, column, excludeItems) {
 					if (excludeItems && !(excludeItems instanceof Array)) {
 						excludeItems = [excludeItems];
 					}
@@ -338,7 +338,7 @@
 				 *
 				 * @param {Array} items An array of items to insert
 				 */
-				this.putItems = function (items) {
+				this.putItems = function(items) {
 					for (var i = 0, l = items.length; i < l; ++i) {
 						this.putItem(items[i]);
 					}
@@ -352,7 +352,7 @@
 				 * @param {Number} column (Optional) Specifies the items column index
 				 * @param {Array} ignoreItems
 				 */
-				this.putItem = function (item, row, column, ignoreItems) {
+				this.putItem = function(item, row, column, ignoreItems) {
 					// auto place item if no row specified
 					if (typeof row === 'undefined' || row === null) {
 						row = item.row;
@@ -412,7 +412,7 @@
 				 * @param {Object} item1
 				 * @param {Object} item2
 				 */
-				this.swapItems = function (item1, item2) {
+				this.swapItems = function(item1, item2) {
 					this.grid[item1.row][item1.col] = item2;
 					this.grid[item2.row][item2.col] = item1;
 
@@ -430,7 +430,7 @@
 				 * @param {Object} item The item that should remain
 				 * @param {Array} ignoreItems
 				 */
-				this.moveOverlappingItems = function (item, ignoreItems) {
+				this.moveOverlappingItems = function(item, ignoreItems) {
 					// don't move item, so ignore it
 					if (!ignoreItems) {
 						ignoreItems = [item];
@@ -457,11 +457,11 @@
 				 * @param {Number} newRow The target row
 				 * @param {Array} ignoreItems
 				 */
-				this.moveItemsDown = function (items, newRow, ignoreItems) {
+				this.moveItemsDown = function(items, newRow, ignoreItems) {
 					if (!items || items.length === 0) {
 						return;
 					}
-					items.sort(function (a, b) {
+					items.sort(function(a, b) {
 						return a.row - b.row;
 					});
 
@@ -494,7 +494,7 @@
 				 * @param {Number} newRow The target row
 				 * @param {Array} ignoreItems
 				 */
-				this.moveItemDown = function (item, newRow, ignoreItems) {
+				this.moveItemDown = function(item, newRow, ignoreItems) {
 					if (item.row >= newRow) {
 						return;
 					}
@@ -508,7 +508,7 @@
 				/**
 				 * Moves all items up as much as possible
 				 */
-				this.floatItemsUp = function () {
+				this.floatItemsUp = function() {
 					if (this.floating === false) {
 						return;
 					}
@@ -531,7 +531,7 @@
 				 *
 				 * @param {Object} item The item to move
 				 */
-				this.floatItemUp = function (item) {
+				this.floatItemUp = function(item) {
 					if (this.floating === false) {
 						return;
 					}
@@ -561,7 +561,7 @@
 				 *
 				 * @param {Number} plus (Optional) Additional height to add
 				 */
-				this.updateHeight = function (plus) {
+				this.updateHeight = function(plus) {
 					var maxHeight = this.minRows;
 					plus = plus || 0;
 					for (var rowIndex = this.grid.length; rowIndex >= 0; --rowIndex) {
@@ -584,7 +584,7 @@
 				 * @param {Number} pixels
 				 * @param {Boolean} ceilOrFloor (Optional) Determines rounding method
 				 */
-				this.pixelsToRows = function (pixels, ceilOrFloor) {
+				this.pixelsToRows = function(pixels, ceilOrFloor) {
 					if (!this.outerMargin) {
 						pixels += this.margins[0] / 2;
 					}
@@ -605,7 +605,7 @@
 				 * @param {Boolean} ceilOrFloor (Optional) Determines rounding method
 				 * @returns {Number} The number of columns
 				 */
-				this.pixelsToColumns = function (pixels, ceilOrFloor) {
+				this.pixelsToColumns = function(pixels, ceilOrFloor) {
 					if (!this.outerMargin) {
 						pixels += this.margins[1] / 2;
 					}
@@ -621,18 +621,18 @@
 			}
 		])
 
-		.directive('gridsterPreview', function () {
+		.directive('gridsterPreview', function() {
 			return {
 				replace: true,
 				scope: true,
 				require: '^gridster',
 				template: '<div ng-style="previewStyle()" class="gridster-item gridster-preview-holder"></div>',
-				link: function (scope, $el, attrs, gridster) {
+				link: function(scope, $el, attrs, gridster) {
 
 					/**
 					 * @returns {Object} style object for preview element
 					 */
-					scope.previewStyle = function () {
+					scope.previewStyle = function() {
 						if (!gridster.movingItem) {
 							return {
 								display: 'none'
@@ -660,17 +660,17 @@
 		 * @param {Function} gridsterDebounce
 		 */
 		.directive('gridster', ['$timeout', '$window', '$rootScope', 'gridsterDebounce', '$log',
-			function ($timeout, $window, $rootScope, gridsterDebounce, $log) {
+			function($timeout, $window, $rootScope, gridsterDebounce, $log) {
 				return {
 					scope: true,
 					restrict: 'EAC',
 					controller: 'GridsterCtrl',
 					controllerAs: 'gridster',
-					compile: function ($tplElem) {
+					compile: function($tplElem) {
 
 						$tplElem.prepend('<div ng-if="gridster.movingItem" gridster-preview></div>');
 
-						return function (scope, $elem, attrs, gridster) {
+						return function(scope, $elem, attrs, gridster) {
 							gridster.loaded = false;
 
 							gridster.$element = $elem;
@@ -679,37 +679,36 @@
 
 							$elem.addClass('gridster');
 
-							var parentElement = $elem[0].parentNode,
-								baseRow = parentElement.clientHeight / gridster.maxRows;
+							var parentElement = $elem[0].parentNode;
 
-							var isVisible = function (ele) {
+							var isVisible = function(ele) {
 								return ele.style.visibility !== 'hidden' && ele.style.display !== 'none';
 							};
 
 							function updateHeight() {
 								if (angular.equals(gridster.rowHeight, 'fit')) {
-									$timeout(function () {
+									$timeout(function() {
 										$elem.css('height', parentElement.clientHeight);
-									})
+									});
 								} else {
 									$elem.css('height', (gridster.gridHeight * gridster.curRowHeight) + (gridster.outerMargin ? gridster.margins[0] : -gridster.margins[0]) + 'px');
 								}
 							}
 
-							scope.$watch(function () {
+							scope.$watch(function() {
 								return gridster.gridHeight;
 							}, updateHeight);
 
-							scope.$watch(function () {
+							scope.$watch(function() {
 								return parentElement.clientHeight;
-							}, function () {
+							}, function() {
 								refresh({});
-								updateHeight()
+								updateHeight();
 							});
 
-							scope.$watch(function () {
+							scope.$watch(function() {
 								return gridster.movingItem;
-							}, function () {
+							}, function() {
 								gridster.updateHeight(gridster.movingItem ? gridster.movingItem.sizeY : 0);
 							});
 
@@ -746,8 +745,6 @@
 									} else if (angular.equals(gridster.rowHeight, 'fit')) {
 										var actualClientHeight = parentElement.clientHeight - (gridster.outerMargin ? 2 * gridster.margins[1] : 0);
 										gridster.curRowHeight = actualClientHeight / gridster.maxRows;
-										$log.debug('actualClientHeight', actualClientHeight)
-										$log.debug('gridster.curRowHeight', gridster.curRowHeight)
 									}
 								}
 
@@ -775,8 +772,7 @@
 
 							var optionsKey = attrs.gridster;
 							if (optionsKey) {
-								scope.$parent.$watch(optionsKey, function (newConfig) {
-									$log.debug('newConfig', newConfig)
+								scope.$parent.$watch(optionsKey, function(newConfig) {
 									refresh(newConfig);
 									updateHeight;
 								}, true);
@@ -784,9 +780,9 @@
 								refresh({});
 							}
 
-							scope.$watch(function () {
+							scope.$watch(function() {
 								return gridster.loaded;
-							}, function () {
+							}, function() {
 								if (gridster.loaded) {
 									$elem.addClass('gridster-loaded');
 									$rootScope.$broadcast('gridster-loaded', gridster);
@@ -795,9 +791,9 @@
 								}
 							});
 
-							scope.$watch(function () {
+							scope.$watch(function() {
 								return gridster.isMobile;
-							}, function () {
+							}, function() {
 								if (gridster.isMobile) {
 									$elem.addClass('gridster-mobile').removeClass('gridster-desktop');
 								} else {
@@ -806,21 +802,21 @@
 								$rootScope.$broadcast('gridster-mobile-changed', gridster);
 							});
 
-							scope.$watch(function () {
+							scope.$watch(function() {
 								return gridster.draggable;
-							}, function () {
+							}, function() {
 								$rootScope.$broadcast('gridster-draggable-changed', gridster);
 							}, true);
 
-							scope.$watch(function () {
+							scope.$watch(function() {
 								return gridster.resizable;
-							}, function () {
+							}, function() {
 								$rootScope.$broadcast('gridster-resizable-changed', gridster);
 							}, true);
 
 							var prevWidth = $elem[0].offsetWidth || parseInt($elem.css('width'), 10);
 
-							var resize = function () {
+							var resize = function() {
 								var width = $elem[0].offsetWidth || parseInt($elem.css('width'), 10);
 
 								if (!width || width === prevWidth || gridster.movingItem) {
@@ -844,12 +840,12 @@
 							// track element width changes any way we can
 							var onResize = gridsterDebounce(function onResize() {
 								resize();
-								$timeout(function () {
+								$timeout(function() {
 									scope.$apply();
 								});
 							}, 100);
 
-							scope.$watch(function () {
+							scope.$watch(function() {
 								return isVisible($elem[0]);
 							}, onResize);
 
@@ -857,7 +853,7 @@
 							if (typeof window.addResizeListener === 'function') {
 								window.addResizeListener($elem[0], onResize);
 							} else {
-								scope.$watch(function () {
+								scope.$watch(function() {
 									return $elem[0].offsetWidth || parseInt($elem.css('width'), 10);
 								}, resize);
 							}
@@ -865,7 +861,7 @@
 							$win.on('resize', onResize);
 
 							// be sure to cleanup
-							scope.$on('$destroy', function () {
+							scope.$on('$destroy', function() {
 								gridster.destroy();
 								$win.off('resize', onResize);
 								if (typeof window.removeResizeListener === 'function') {
@@ -874,8 +870,8 @@
 							});
 
 							// allow a little time to place items before floating up
-							$timeout(function () {
-								scope.$watch('gridster.floating', function () {
+							$timeout(function() {
+								scope.$watch('gridster.floating', function() {
 									gridster.floatItemsUp();
 								});
 								gridster.loaded = true;
@@ -886,7 +882,7 @@
 			}
 		])
 
-		.controller('GridsterItemCtrl', function () {
+		.controller('GridsterItemCtrl', function() {
 			this.$element = null;
 			this.gridster = null;
 			this.row = null;
@@ -898,14 +894,14 @@
 			this.maxSizeX = null;
 			this.maxSizeY = null;
 
-			this.init = function ($element, gridster) {
+			this.init = function($element, gridster) {
 				this.$element = $element;
 				this.gridster = gridster;
 				this.sizeX = gridster.defaultSizeX;
 				this.sizeY = gridster.defaultSizeY;
 			};
 
-			this.destroy = function () {
+			this.destroy = function() {
 				// set these to null to avoid the possibility of circular references
 				this.gridster = null;
 				this.$element = null;
@@ -914,7 +910,7 @@
 			/**
 			 * Returns the items most important attributes
 			 */
-			this.toJSON = function () {
+			this.toJSON = function() {
 				return {
 					row: this.row,
 					col: this.col,
@@ -923,7 +919,7 @@
 				};
 			};
 
-			this.isMoving = function () {
+			this.isMoving = function() {
 				return this.gridster.movingItem === this;
 			};
 
@@ -933,7 +929,7 @@
 			 * @param {Number} row
 			 * @param {Number} column
 			 */
-			this.setPosition = function (row, column) {
+			this.setPosition = function(row, column) {
 				this.gridster.putItem(this, row, column);
 
 				if (!this.isMoving()) {
@@ -948,7 +944,7 @@
 			 * @param {Number} value The size amount
 			 * @param {Boolean} preventMove
 			 */
-			this.setSize = function (key, value, preventMove) {
+			this.setSize = function(key, value, preventMove) {
 				key = key.toUpperCase();
 				var camelCase = 'size' + key,
 					titleCase = 'Size' + key;
@@ -1002,7 +998,7 @@
 			 * @param {Number} rows
 			 * @param {Boolean} preventMove
 			 */
-			this.setSizeY = function (rows, preventMove) {
+			this.setSizeY = function(rows, preventMove) {
 				return this.setSize('Y', rows, preventMove);
 			};
 
@@ -1012,14 +1008,14 @@
 			 * @param {Number} columns
 			 * @param {Boolean} preventMove
 			 */
-			this.setSizeX = function (columns, preventMove) {
+			this.setSizeX = function(columns, preventMove) {
 				return this.setSize('X', columns, preventMove);
 			};
 
 			/**
 			 * Sets an elements position on the page
 			 */
-			this.setElementPosition = function () {
+			this.setElementPosition = function() {
 				if (this.gridster.isMobile) {
 					this.$element.css({
 						marginLeft: this.gridster.margins[0] + 'px',
@@ -1041,7 +1037,7 @@
 			/**
 			 * Sets an elements height
 			 */
-			this.setElementSizeY = function () {
+			this.setElementSizeY = function() {
 				if (this.gridster.isMobile && !this.gridster.saveGridItemCalculatedHeightInMobile) {
 					this.$element.css('height', '');
 				} else {
@@ -1052,7 +1048,7 @@
 			/**
 			 * Sets an elements width
 			 */
-			this.setElementSizeX = function () {
+			this.setElementSizeX = function() {
 				if (this.gridster.isMobile) {
 					this.$element.css('width', '');
 				} else {
@@ -1063,25 +1059,25 @@
 			/**
 			 * Gets an element's width
 			 */
-			this.getElementSizeX = function () {
+			this.getElementSizeX = function() {
 				return (this.sizeX * this.gridster.curColWidth - this.gridster.margins[1]);
 			};
 
 			/**
 			 * Gets an element's height
 			 */
-			this.getElementSizeY = function () {
+			this.getElementSizeY = function() {
 				return (this.sizeY * this.gridster.curRowHeight - this.gridster.margins[0]);
 			};
 
 		})
 
-		.factory('GridsterTouch', [function () {
+		.factory('GridsterTouch', [function() {
 			return function GridsterTouch(target, startEvent, moveEvent, endEvent) {
 				var lastXYById = {};
 
 				//  Opera doesn't have Object.keys so we use this wrapper
-				var numberOfKeys = function (theObject) {
+				var numberOfKeys = function(theObject) {
 					if (Object.keys) {
 						return Object.keys(theObject).length;
 					}
@@ -1096,7 +1092,7 @@
 				};
 
 				//  this calculates the delta needed to convert pageX/Y to offsetX/Y because offsetX/Y don't exist in the TouchEvent object or in Firefox's MouseEvent object
-				var computeDocumentToElementDelta = function (theElement) {
+				var computeDocumentToElementDelta = function(theElement) {
 					var elementLeft = 0;
 					var elementTop = 0;
 					var oldIEUserAgent = navigator.userAgent.match(/\bMSIE\b/);
@@ -1126,7 +1122,7 @@
 				var useSetReleaseCapture = false;
 
 				//  common event handler for the mouse/pointer/touch models and their down/start, move, up/end, and cancel events
-				var doEvent = function (theEvtObj) {
+				var doEvent = function(theEvtObj) {
 
 					if (theEvtObj.type === 'mousemove' && numberOfKeys(lastXYById) === 0) {
 						return;
@@ -1289,7 +1285,7 @@
 				// saving the settings for contentZooming and touchaction before activation
 				var contentZooming, msTouchAction;
 
-				this.enable = function () {
+				this.enable = function() {
 
 					if (window.navigator.msPointerEnabled) {
 						//  Microsoft pointer model
@@ -1331,17 +1327,17 @@
 					} else if (target.attachEvent && target.setCapture) {
 						//  legacy IE mode - mouse with capture
 						useSetReleaseCapture = true;
-						target.attachEvent('onmousedown', function () {
+						target.attachEvent('onmousedown', function() {
 							doEvent(window.event);
 							window.event.returnValue = false;
 							return false;
 						});
-						target.attachEvent('onmousemove', function () {
+						target.attachEvent('onmousemove', function() {
 							doEvent(window.event);
 							window.event.returnValue = false;
 							return false;
 						});
-						target.attachEvent('onmouseup', function () {
+						target.attachEvent('onmouseup', function() {
 							doEvent(window.event);
 							window.event.returnValue = false;
 							return false;
@@ -1349,7 +1345,7 @@
 					}
 				};
 
-				this.disable = function () {
+				this.disable = function() {
 					if (window.navigator.msPointerEnabled) {
 						//  Microsoft pointer model
 						target.removeEventListener('MSPointerDown', doEvent, false);
@@ -1398,7 +1394,7 @@
 		}])
 
 		.factory('GridsterDraggable', ['$document', '$window', 'GridsterTouch',
-			function ($document, $window, GridsterTouch) {
+			function($document, $window, GridsterTouch) {
 				function GridsterDraggable($el, scope, gridster, item, itemOptions) {
 
 					var elmX, elmY, elmW, elmH,
@@ -1422,7 +1418,7 @@
 						gridster.movingItem = item;
 
 						gridster.updateHeight(item.sizeY);
-						scope.$apply(function () {
+						scope.$apply(function() {
 							if (gridster.draggable && gridster.draggable.start) {
 								gridster.draggable.start(event, $el, itemOptions, item);
 							}
@@ -1498,7 +1494,7 @@
 						}
 
 						if (hasCallback || oldRow !== item.row || oldCol !== item.col) {
-							scope.$apply(function () {
+							scope.$apply(function() {
 								if (hasCallback) {
 									gridster.draggable.drag(event, $el, itemOptions, item);
 								}
@@ -1517,7 +1513,7 @@
 						gridster.movingItem = null;
 						item.setPosition(item.row, item.col);
 
-						scope.$apply(function () {
+						scope.$apply(function() {
 							if (gridster.draggable && gridster.draggable.stop) {
 								gridster.draggable.stop(event, $el, itemOptions, item);
 							}
@@ -1551,25 +1547,25 @@
 							var $dragHandles = angular.element($el[0].querySelectorAll(gridster.draggable.handle));
 							var match = false;
 							outerloop:
-							for (var h = 0, hl = $dragHandles.length; h < hl; ++h) {
-								var handle = $dragHandles[h];
-								if (handle === e.target) {
-									match = true;
-									break;
-								}
-								var target = e.target;
-								for (var p = 0; p < 20; ++p) {
-									var parent = target.parentNode;
-									if (parent === $el[0] || !parent) {
+								for (var h = 0, hl = $dragHandles.length; h < hl; ++h) {
+									var handle = $dragHandles[h];
+									if (handle === e.target) {
+										match = true;
 										break;
 									}
-									if (parent === handle) {
-										match = true;
-										break outerloop;
+									var target = e.target;
+									for (var p = 0; p < 20; ++p) {
+										var parent = target.parentNode;
+										if (parent === $el[0] || !parent) {
+											break;
+										}
+										if (parent === handle) {
+											match = true;
+											break outerloop;
+										}
+										target = parent;
 									}
-									target = parent;
 								}
-							}
 							if (!match) {
 								return false;
 							}
@@ -1668,7 +1664,7 @@
 					var enabled = null;
 					var gridsterTouch = null;
 
-					this.enable = function () {
+					this.enable = function() {
 						if (enabled === true) {
 							return;
 						}
@@ -1683,7 +1679,7 @@
 						gridsterTouch.enable();
 					};
 
-					this.disable = function () {
+					this.disable = function() {
 						if (enabled === false) {
 							return;
 						}
@@ -1694,7 +1690,7 @@
 						}
 					};
 
-					this.toggle = function (enabled) {
+					this.toggle = function(enabled) {
 						if (enabled) {
 							this.enable();
 						} else {
@@ -1702,7 +1698,7 @@
 						}
 					};
 
-					this.destroy = function () {
+					this.destroy = function() {
 						this.disable();
 					};
 				}
@@ -1711,7 +1707,7 @@
 			}
 		])
 
-		.factory('GridsterResizable', ['GridsterTouch', function (GridsterTouch) {
+		.factory('GridsterResizable', ['GridsterTouch', function(GridsterTouch) {
 			function GridsterResizable($el, scope, gridster, item, itemOptions) {
 
 				function ResizeHandle(handleClass) {
@@ -1731,10 +1727,10 @@
 						maxTop = 9999,
 						minLeft = 0;
 
-					var getMinHeight = function () {
+					var getMinHeight = function() {
 						return (item.minSizeY ? item.minSizeY : 1) * gridster.curRowHeight - gridster.margins[0];
 					};
-					var getMinWidth = function () {
+					var getMinWidth = function() {
 						return (item.minSizeX ? item.minSizeX : 1) * gridster.curColWidth - gridster.margins[1];
 					};
 
@@ -1752,7 +1748,7 @@
 						item.setElementPosition();
 						gridster.updateHeight(1);
 
-						scope.$apply(function () {
+						scope.$apply(function() {
 							// callback
 							if (gridster.resizable && gridster.resizable.start) {
 								gridster.resizable.start(e, $el, itemOptions, item); // options is the item model
@@ -1802,7 +1798,7 @@
 						var isChanged = item.row !== oldRow || item.col !== oldCol || item.sizeX !== oldSizeX || item.sizeY !== oldSizeY;
 
 						if (hasCallback || isChanged) {
-							scope.$apply(function () {
+							scope.$apply(function() {
 								if (hasCallback) {
 									gridster.resizable.resize(e, $el, itemOptions, item); // options is the item model
 								}
@@ -1820,7 +1816,7 @@
 						item.setSizeY(item.sizeY);
 						item.setSizeX(item.sizeX);
 
-						scope.$apply(function () {
+						scope.$apply(function() {
 							if (gridster.resizable && gridster.resizable.stop) {
 								gridster.resizable.stop(e, $el, itemOptions, item); // options is the item model
 							}
@@ -1955,7 +1951,7 @@
 					var $dragHandle = null;
 					var unifiedInput;
 
-					this.enable = function () {
+					this.enable = function() {
 						if (!$dragHandle) {
 							$dragHandle = angular.element('<div class="gridster-item-resizable-handler handle-' + hClass + '"></div>');
 							$el.append($dragHandle);
@@ -1965,7 +1961,7 @@
 						unifiedInput.enable();
 					};
 
-					this.disable = function () {
+					this.disable = function() {
 						if ($dragHandle) {
 							$dragHandle.remove();
 							$dragHandle = null;
@@ -1975,7 +1971,7 @@
 						unifiedInput = undefined;
 					};
 
-					this.destroy = function () {
+					this.destroy = function() {
 						this.disable();
 					};
 				}
@@ -1991,7 +1987,7 @@
 					handles.push(new ResizeHandle(handlesOpts[c]));
 				}
 
-				this.enable = function () {
+				this.enable = function() {
 					if (enabled) {
 						return;
 					}
@@ -2001,7 +1997,7 @@
 					enabled = true;
 				};
 
-				this.disable = function () {
+				this.disable = function() {
 					if (!enabled) {
 						return;
 					}
@@ -2011,7 +2007,7 @@
 					enabled = false;
 				};
 
-				this.toggle = function (enabled) {
+				this.toggle = function(enabled) {
 					if (enabled) {
 						this.enable();
 					} else {
@@ -2019,7 +2015,7 @@
 					}
 				};
 
-				this.destroy = function () {
+				this.destroy = function() {
 					for (var c = 0, l = handles.length; c < l; c++) {
 						handles[c].destroy();
 					}
@@ -2028,13 +2024,13 @@
 			return GridsterResizable;
 		}])
 
-		.factory('gridsterDebounce', function () {
+		.factory('gridsterDebounce', function() {
 			return function gridsterDebounce(func, wait, immediate) {
 				var timeout;
-				return function () {
+				return function() {
 					var context = this,
 						args = arguments;
-					var later = function () {
+					var later = function() {
 						timeout = null;
 						if (!immediate) {
 							func.apply(context, args);
@@ -2058,14 +2054,14 @@
 		 * @param gridsterDebounce
 		 */
 		.directive('gridsterItem', ['$parse', 'GridsterDraggable', 'GridsterResizable', 'gridsterDebounce',
-			function ($parse, GridsterDraggable, GridsterResizable, gridsterDebounce) {
+			function($parse, GridsterDraggable, GridsterResizable, gridsterDebounce) {
 				return {
 					scope: true,
 					restrict: 'EA',
 					controller: 'GridsterItemCtrl',
 					controllerAs: 'gridsterItem',
 					require: ['^gridster', 'gridsterItem'],
-					link: function (scope, $el, attrs, controllers) {
+					link: function(scope, $el, attrs, controllers) {
 						var optionsKey = attrs.gridsterItem,
 							options;
 
@@ -2105,7 +2101,7 @@
 							$getters = {};
 
 						var expressions = [];
-						var aspectFn = function (aspect) {
+						var aspectFn = function(aspect) {
 							var expression;
 							if (typeof options[aspect] === 'string') {
 								// watch the expression in the scope
@@ -2135,7 +2131,7 @@
 
 						var watchExpressions = '{' + expressions.join(',') + '}';
 						// when the value changes externally, update the internal item object
-						scope.$watchCollection(watchExpressions, function (newVals, oldVals) {
+						scope.$watchCollection(watchExpressions, function(newVals, oldVals) {
 							for (var aspect in newVals) {
 								var newVal = newVals[aspect];
 								var oldVal = oldVals[aspect];
@@ -2161,7 +2157,7 @@
 								$getters.col.assign(scope, item.col);
 							}
 						}
-						scope.$watch(function () {
+						scope.$watch(function() {
 							return item.row + ',' + item.col;
 						}, positionChanged);
 
@@ -2182,19 +2178,19 @@
 							}
 						}
 
-						scope.$watch(function () {
+						scope.$watch(function() {
 							return item.sizeY + ',' + item.sizeX + ',' + item.minSizeX + ',' + item.maxSizeX + ',' + item.minSizeY + ',' + item.maxSizeY;
 						}, sizeChanged);
 
 						var draggable = new GridsterDraggable($el, scope, gridster, item, options);
 						var resizable = new GridsterResizable($el, scope, gridster, item, options);
 
-						var updateResizable = function () {
+						var updateResizable = function() {
 							resizable.toggle(!gridster.isMobile && gridster.resizable && gridster.resizable.enabled);
 						};
 						updateResizable();
 
-						var updateDraggable = function () {
+						var updateDraggable = function() {
 							draggable.toggle(!gridster.isMobile && gridster.draggable && gridster.draggable.enabled);
 						};
 						updateDraggable();
@@ -2202,7 +2198,7 @@
 						scope.$on('gridster-draggable-changed', updateDraggable);
 						scope.$on('gridster-resizable-changed', updateResizable);
 						scope.$on('gridster-resized', updateResizable);
-						scope.$on('gridster-mobile-changed', function () {
+						scope.$on('gridster-mobile-changed', function() {
 							updateResizable();
 							updateDraggable();
 						});
@@ -2222,8 +2218,8 @@
 							}
 						}
 
-						var debouncedTransitionEndPublisher = gridsterDebounce(function () {
-							scope.$apply(function () {
+						var debouncedTransitionEndPublisher = gridsterDebounce(function() {
+							scope.$apply(function() {
 								scope.$broadcast('gridster-item-transition-end', item);
 							});
 						}, 50);
@@ -2232,34 +2228,34 @@
 
 						scope.$broadcast('gridster-item-initialized', item);
 
-						return scope.$on('$destroy', function () {
+						return scope.$on('$destroy', function() {
 							try {
 								resizable.destroy();
 								draggable.destroy();
-							} catch (e) { }
+							} catch (e) {}
 
 							try {
 								gridster.removeItem(item);
-							} catch (e) { }
+							} catch (e) {}
 
 							try {
 								item.destroy();
-							} catch (e) { }
+							} catch (e) {}
 						});
 					}
 				};
 			}
 		])
 
-		.directive('gridsterNoDrag', function () {
+		.directive('gridsterNoDrag', function() {
 			return {
 				restrict: 'A',
-				link: function (scope, $element) {
+				link: function(scope, $element) {
 					$element.addClass('gridster-no-drag');
 				}
 			};
 		})
 
-		;
+	;
 
 }));

@@ -1,42 +1,42 @@
 {
-  "name": "angular-layout-design",
-  "version": "0.13.14",
-  "main": [
-    "src/angular-gridster.js",
-    "dist/angular-gridster.css"
-  ],
-  "dependencies": {
-    "angular": ">= 1.2.0",
-    "javascript-detect-element-resize": "~0.5.1"
-  },
-  "devDependencies": {
-    "angular-mocks": ">= 1.2.0",
-    "angular-animate": ">= 1.2.0",
-    "jquery": "*",
-    "jquery-simulate": "*"
-  },
-  "ignore": [
-    "test",
-    ".bowerrc",
-    ".editorconfig",
-    ".gitattributes",
-    ".gitignore",
-    ".jshintrc",
-    ".travis.yml",
-    "Gruntfile.js",
-    "karma.conf.js",
-    "ptor.conf.js",
-    "package.json",
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "tests"
-  ],
-  "homepage": "https://github.com/spsvn/angular-layout-design",
-  "authors": [
-    "Hunt Nguyen <hung.nguyen@swisspost.com>"
-  ],
-  "description": "",
-  "license": "MIT",
-  "private": true
+	"name": "angular-layout-design",
+	"version": "0.13.14",
+	"main": [
+		"src/angular-gridster.js",
+		"dist/angular-gridster.css"
+	],
+	"dependencies": {
+		"angular": ">= 1.2.0",
+		"javascript-detect-element-resize": "~0.5.1"
+	},
+	"devDependencies": {
+		"angular-mocks": ">= 1.2.0",
+		"angular-animate": ">= 1.2.0",
+		"jquery": "*",
+		"jquery-simulate": "*"
+	},
+	"ignore": [
+		"test",
+		".bowerrc",
+		".editorconfig",
+		".gitattributes",
+		".gitignore",
+		".jshintrc",
+		".travis.yml",
+		"Gruntfile.js",
+		"karma.conf.js",
+		"ptor.conf.js",
+		"package.json",
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"tests"
+	],
+	"homepage": "https://github.com/spsvn/angular-layout-design",
+	"authors": [
+		"Hunt Nguyen <hung.nguyen@swisspost.com>"
+	],
+	"description": "",
+	"license": "MIT",
+	"private": true
 }
